@@ -1,0 +1,10 @@
+{
+  "name": "professional-screen-recorder-pro",
+  "version": "1.0.0",
+  "description": "A client-side screen recorder demo using MediaRecorder and Web APIs",
+  "scripts": {
+    "start": "npx http-server -c-1 . -p 8080"
+  },
+  "author": "",
+  "license": "MIT"
+}

@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Professional Screen Recorder Pro</title>
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+
+<body>
+  <div class="container">
+    <header>
+      <h1>🎥 Professional Screen Recorder Pro</h1>
+      <p class="subtitle">Advanced screen recording with editing, audio extraction & more!</p>
+    </header>
+
+    <div class="info-box">
+      <p><strong>✨ Pro Features:</strong> 🎬 8K/4K/2K recording up to 120 FPS | 💎 Studio quality up to 100 Mbps | 🎭
+        Import & merge videos | ✂️ Split & trim tools | 🎨 Animations & effects | 🎵 Audio extraction | 📝 Text overlays
+        | 🎯 Multiple codecs (VP9, H.264, AV1)</p>
+    </div>
+
+    <!-- Setup Panel -->
+    <div class="panel" id="setupPanel">
+      <h2>⚙️ Recording Settings</h2>
+
+      <div class="controls">
+        <div class="control-group">
+          <label>Video Resolution</label>
+          <select id="resolution">
+            <option value="1920x1080">Full HD (1920x1080)</option>
+            <option value="2560x1440">2K QHD (2560x1440)</option>
+            <option value="3840x2160" selected>4K UHD (3840x2160)</option>
+            <option value="5120x2880">5K (5120x2880)</option>
+            <option value="7680x4320">8K UHD (7680x4320)</option>
+            <option value="max">Maximum Available</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Video Bitrate (Quality)</label>
+          <select id="quality">
+            <option value="4000000">Standard (4 Mbps)</option>
+            <option value="8000000">High (8 Mbps)</option>
+            <option value="16000000">Very High (16 Mbps)</option>
+            <option value="25000000">Ultra (25 Mbps)</option>
+            <option value="40000000" selected>Extreme (40 Mbps)</option>
+            <option value="60000000">Professional (60 Mbps)</option>
+            <option value="100000000">Studio (100 Mbps)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Frame Rate</label>
+          <select id="fps">
+            <option value="24">24 FPS (Cinematic)</option>
+            <option value="30">30 FPS (Standard)</option>
+            <option value="60" selected>60 FPS (Smooth)</option>
+            <option value="120">120 FPS (Ultra Smooth)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Video Codec</label>
+          <select id="codec">
+            <option value="vp9">VP9 (High Quality)</option>
+            <option value="vp8">VP8 (Compatible)</option>
+            <option value="h264">H.264 (Universal)</option>
+            <option value="av1">AV1 (Next-Gen)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="controls">
+        <div class="control-group">
+          <label>Recording Source</label>
+          <select id="source">
+            <option value="screen">Entire Screen</option>
+            <option value="window">Application Window</option>
+            <option value="tab">Browser Tab</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Audio Bitrate</label>
+          <select id="audioBitrate">
+            <option value="128000">128 kbps (Standard)</option>
+            <option value="192000">192 kbps (High)</option>
+            <option value="256000" selected>256 kbps (Very High)</option>
+            <option value="320000">320 kbps (Maximum)</option>
+          </select>
+        </div>
+
+        <div class="control-group">
+          <label>Countdown Timer</label>
+          <select id="countdown">
+            <option value="0">No Countdown</option>
+            <option value="3" selected>3 Seconds</option>
+            <option value="5">5 Seconds</option>
+            <option value="10">10 Seconds</option>
+          </select>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="highQualityMode" checked>
+          <label for="highQualityMode">🎯 High Quality Mode (Optimize for clarity)</label>
+        </div>
+      </div>
+
+      <h3>🎙️ Audio Settings</h3>
+      <div class="controls">
+        <div class="checkbox-group">
+          <input type="checkbox" id="recordAudio" checked>
+          <label for="recordAudio">📢 Record System Audio</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="recordMic">
+          <label for="recordMic">🎤 Record Microphone</label>
+        </div>
+
+        <div class="checkbox-group">
+          <input type="checkbox" id="enableWebcam">
+          <label for="enableWebcam">📷 Enable Webcam Overlay</label>
+        </div>
+      </div>
+
+      <div class="info-box" style="background: rgba(16, 185, 129, 0.1); border-left-color: var(--success);">
+        <p><strong>💡 Quality Tips:</strong></p>
+        <ul style="margin-left: 1.5rem; margin-top: 0.5rem; color: var(--text-secondary); line-height: 1.8;">
+          <li><strong>8K Recording:</strong> Requires powerful hardware and produces large files (1GB+ per minute)</li>
+          <li><strong>Best Settings:</strong> 4K @ 60 FPS with 40 Mbps for most use cases</li>
+          <li><strong>Studio Quality:</strong> Use 100 Mbps bitrate for professional content creation</li>
+          <li><strong>Audio:</strong> 256 kbps or 320 kbps for crystal-clear sound</li>
+          <li><strong>High Quality Mode:</strong> Enables noise suppression and echo cancellation</li>
+          <li><strong>Storage:</strong> Ensure you have sufficient disk space before recording</li>
+        </ul>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-primary" id="startBtn">
+          ▶️ Start Recording
+        </button>
+      </div>
+    </div>
+
+    <!-- Recording Panel -->
+    <div class="panel hidden" id="recordingPanel">
+      <h2>🔴 Recording in Progress</h2>
+
+      <div class="video-container">
+        <video id="preview" autoplay muted></video>
+        <div id="webcamOverlay">
+          <video id="webcamVideo" autoplay muted></video>
+        </div>
+        <div class="recording-indicator" id="indicator">
+          <span class="rec-dot"></span>
+          <span>REC</span>
+        </div>
+        <div class="countdown" id="countdownDisplay"></div>
+      </div>
+
+      <div class="stats">
+        <div class="stat-item">
+          <span class="stat-icon">⏱️</span>
+          <span id="timer">00:00:00</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">💾</span>
+          <span id="fileSize">0 MB</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🎬</span>
+          <span id="frameCount">0 frames</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">📊</span>
+          <span id="qualityInfo">--</span>
+        </div>
+        <div class="stat-item">
+          <span class="stat-icon">🎯</span>
+          <span id="bitrateInfo">--</span>
+        </div>
+      </div>
+
+      <div class="button-group">
+        <button class="btn-secondary" id="pauseBtn">
+          ⏸️ Pause
+        </button>
+        <button class="btn-warning" id="screenshotBtn">
+          📸 Screenshot
+        </button>
+        <button class="btn-danger" id="stopBtn">
+          ⏹️ Stop Recording
+        </button>
+      </div>
+    </div>
+
+    <!-- Preview Panel -->
+    <div class="panel hidden" id="previewPanel">
+      <h2>✅ Recording Complete</h2>
+
+      <div class="tabs">
+        <button class="tab active" data-tab="preview-tab">🎬 Preview</button>
+        <button class="tab" data-tab="edit-tab">✂️ Edit</button>
+        <button class="tab" data-tab="advanced-tab">🚀 Advanced</button>
+        <button class="tab" data-tab="effects-tab">✨ Effects</button>
+        <button class="tab" data-tab="audio-tab">🎵 Audio</button>
+        <button class="tab" data-tab="export-tab">💾 Export</button>
+      </div>
+
+      <!-- Preview Tab -->
+      <div class="tab-content active" id="preview-tab">
+        <div class="video-container">
+          <video id="recorded" controls></video>
+        </div>
+
+        <div class="controls">
+          <div class="control-group">
+            <label>Playback Speed: <span class="slider-value" id="speedValue">1.0x</span></label>
+            <input type="range" id="playbackSpeed" min="0.25" max="2" step="0.25" value="1">
+          </div>
+        </div>
+      </div>
+
+      <!-- Edit Tab -->
+      <div class="tab-content" id="edit-tab">
+        <div class="editor-controls">
+          <h3>✂️ Trim Video</h3>
+          <div class="trim-controls">
+            <label>Start:</label>
+            <input type="number" id="trimStart" min="0" step="0.1" value="0" placeholder="0">
+            <label>End:</label>
+            <input type="number" id="trimEnd" min="0" step="0.1" placeholder="Duration">
+            <button class="btn-primary" id="applyTrim">Apply Trim</button>
+          </div>
+
+          <h3>🎨 Video Filters</h3>
+          <div class="filter-grid">
+            <div class="filter-btn" data-filter="none">
+              <div>✨ None</div>
+            </div>
+            <div class="filter-btn" data-filter="grayscale(100%)">
+              <div>⬜ Grayscale</div>
+            </div>
+            <div class="filter-btn" data-filter="sepia(100%)">
+              <div>📜 Sepia</div>
+            </div>
+            <div class="filter-btn" data-filter="invert(100%)">
+              <div>🔄 Invert</div>
+            </div>
+            <div class="filter-btn" data-filter="brightness(150%)">
+              <div>☀️ Bright</div>
+            </div>
+            <div class="filter-btn" data-filter="contrast(150%)">
+              <div>🔆 Contrast</div>
+            </div>
+            <div class="filter-btn" data-filter="saturate(200%)">
+              <div>🌈 Saturate</div>
+            </div>
+            <div class="filter-btn" data-filter="blur(5px)">
+              <div>🌫️ Blur</div>
+            </div>
+          </div>
+
+          <h3>🎬 Advanced Controls</h3>
+          <div class="controls">
+            <div class="control-group">
+              <label>Brightness: <span class="slider-value" id="brightnessValue">100%</span></label>
+              <input type="range" id="brightness" min="0" max="200" value="100">
+            </div>
+            <div class="control-group">
+              <label>Contrast: <span class="slider-value" id="contrastValue">100%</span></label>
+              <input type="range" id="contrast" min="0" max="200" value="100">
+            </div>
+            <div class="control-group">
+              <label>Saturation: <span class="slider-value" id="saturationValue">100%</span></label>
+              <input type="range" id="saturation" min="0" max="200" value="100">
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button class="btn-secondary" id="resetFilters">🔄 Reset All Filters</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Advanced Tab -->
+      <div class="tab-content" id="advanced-tab">
+        <div class="editor-controls">
+          <h3>📁 Video Library & Import</h3>
+          <div class="file-input-wrapper">
+            <input type="file" id="importVideo" accept="video/*" multiple>
+            <label for="importVideo" class="file-input-label">
+              📥 Import Videos
+            </label>
+          </div>
+
+          <div class="video-library" id="videoLibrary">
+            <!-- Videos will be added here dynamically -->
+          </div>
+
+          <h3>🎬 Multi-Video Editor</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+            Select multiple videos from your library and merge them into one video.
+          </p>
+
+          <div class="merge-queue" id="mergeQueue">
+            <div class="merge-queue-empty" id="mergeQueueEmpty">
+              👆 Select videos from the library above to add them to the merge queue
+            </div>
+            <div class="merge-queue-items hidden" id="mergeQueueItems">
+              <!-- Queue items will appear here -->
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button class="btn-success" id="mergeVideosBtn" disabled>
+              🔗 Merge Selected Videos
+            </button>
+            <button class="btn-secondary" id="clearMergeQueueBtn" disabled>
+              🗑️ Clear Queue
+            </button>
+          </div>
+
+          <h3>✂️ Advanced Trim & Split</h3>
+          <div class="info-box">
+            <p>Split your video at specific timestamps to create multiple segments.</p>
+          </div>
+
+          <div class="trim-controls">
+            <label>Split at (seconds):</label>
+            <input type="number" id="splitTime" min="0" step="0.1" placeholder="0.0">
+            <button class="btn-primary" id="addSplitMarkerBtn">
+              ➕ Add Split Point
+            </button>
+          </div>
+
+          <div class="split-markers" id="splitMarkers">
+            <!-- Split markers will appear here -->
+          </div>
+
+          <div class="button-group">
+            <button class="btn-warning" id="applySplitBtn" disabled>
+              ✂️ Split Video at Markers
+            </button>
+            <button class="btn-secondary" id="clearSplitMarkersBtn">
+              🗑️ Clear All Markers
+            </button>
+          </div>
+
+          <h3>🎞️ Timeline Editor</h3>
+          <div class="timeline">
+            <div class="timeline-tracks" id="timelineTracks">
+              <div style="color: var(--text-secondary); width: 100%; text-align: center;">
+                Timeline will show video clips after splitting or merging
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Effects Tab -->
+      <div class="tab-content" id="effects-tab">
+        <div class="editor-controls">
+          <h3>🎭 Animations & Transitions</h3>
+          <div class="info-box">
+            <p>Add entrance animations and effects to your video.</p>
+          </div>
+
+          <div class="animation-grid">
+            <div class="animation-btn" data-animation="fadeIn">
+              <div>✨ Fade In</div>
+            </div>
+            <div class="animation-btn" data-animation="slideInLeft">
+              <div>⬅️ Slide Left</div>
+            </div>
+            <div class="animation-btn" data-animation="slideInRight">
+              <div>➡️ Slide Right</div>
+            </div>
+            <div class="animation-btn" data-animation="slideInTop">
+              <div>⬆️ Slide Top</div>
+            </div>
+            <div class="animation-btn" data-animation="slideInBottom">
+              <div>⬇️ Slide Bottom</div>
+            </div>
+            <div class="animation-btn" data-animation="zoomIn">
+              <div>🔍 Zoom In</div>
+            </div>
+            <div class="animation-btn" data-animation="rotate">
+              <div>🔄 Rotate</div>
+            </div>
+            <div class="animation-btn" data-animation="bounce">
+              <div>⚡ Bounce</div>
+            </div>
+          </div>
+
+          <h3>📝 Text Overlay</h3>
+          <div class="text-overlay-editor">
+            <div class="text-overlay-preview">
+              <div id="textOverlayDisplay">Your Text Here</div>
+            </div>
+
+            <div class="controls">
+              <div class="control-group">
+                <label>Text Content</label>
+                <input type="text" id="overlayText" value="Your Text Here"
+                  style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background: var(--dark); color: var(--text);">
+              </div>
+
+              <div class="control-group">
+                <label>Text Position</label>
+                <select id="overlayPosition">
+                  <option value="center">Center</option>
+                  <option value="top-left">Top Left</option>
+                  <option value="top-center">Top Center</option>
+                  <option value="top-right">Top Right</option>
+                  <option value="bottom-left">Bottom Left</option>
+                  <option value="bottom-center">Bottom Center</option>
+                  <option value="bottom-right">Bottom Right</option>
+                </select>
+              </div>
+
+              <div class="control-group">
+                <label>Font Size: <span class="slider-value" id="fontSizeValue">32px</span></label>
+                <input type="range" id="fontSize" min="12" max="72" value="32">
+              </div>
+
+              <div class="control-group">
+                <label>Text Color</label>
+                <input type="color" id="textColor" value="#ffffff" style="width: 100%; height: 40px; cursor: pointer;">
+              </div>
+            </div>
+
+            <div class="button-group">
+              <button class="btn-primary" id="applyTextOverlayBtn">
+                📝 Apply Text Overlay
+              </button>
+              <button class="btn-secondary" id="removeTextOverlayBtn">
+                ❌ Remove Overlay
+              </button>
+            </div>
+          </div>
+
+          <h3>🎨 Visual Effects</h3>
+          <div class="controls">
+            <div class="control-group">
+              <label>Opacity: <span class="slider-value" id="opacityValue">100%</span></label>
+              <input type="range" id="opacity" min="0" max="100" value="100">
+            </div>
+
+            <div class="control-group">
+              <label>Hue Rotate: <span class="slider-value" id="hueValue">0°</span></label>
+              <input type="range" id="hue" min="0" max="360" value="0">
+            </div>
+
+            <div class="control-group">
+              <label>Blur: <span class="slider-value" id="blurValue">0px</span></label>
+              <input type="range" id="blurAmount" min="0" max="20" value="0">
+            </div>
+          </div>
+
+          <div class="button-group">
+            <button class="btn-secondary" id="resetEffectsBtn">
+              🔄 Reset All Effects
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Audio Tab -->
+      <div class="tab-content" id="audio-tab">
+        <div class="editor-controls">
+          <h3>🎵 Audio Extraction</h3>
+          <p style="color: var(--text-secondary); margin-bottom: 1rem;">
+            Extract audio from your video recording and save it as a separate audio file.
+          </p>
+
+          <div class="button-group">
+            <button class="btn-success" id="extractAudioBtn">
+              🎵 Extract Audio (MP3)
+            </button>
+            <button class="btn-info" id="extractAudioWavBtn">
+              🎵 Extract Audio (WAV)
+            </button>
+          </div>
+
+          <div class="progress-bar hidden" id="audioProgress">
+            <div class="progress-fill" id="audioProgressFill"></div>
+          </div>
+
+          <h3>🔊 Audio Controls</h3>
+          <div class="controls">
+            <div class="control-group">
+              <label>Volume: <span class="slider-value" id="volumeValue">100%</span></label>
+              <input type="range" id="volume" min="0" max="200" value="100">
+            </div>
+            <div class="checkbox-group">
+              <input type="checkbox" id="muteVideo">
+              <label for="muteVideo">🔇 Mute Video</label>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Export Tab -->
+      <div class="tab-content" id="export-tab">
+        <div class="editor-controls">
+          <h3>💾 Export Options</h3>
+
+          <div class="controls">
+            <div class="control-group">
+              <label>Export Format</label>
+              <select id="exportFormat">
+                <option value="webm">WebM (Default)</option>
+                <option value="mp4">MP4 (Compatibility)</option>
+              </select>
+            </div>
+
+            <div class="control-group">
+              <label>File Name</label>
+              <input type="text" id="fileName" value="recording"
+                style="padding: 0.75rem; border-radius: 8px; border: 1px solid var(--border); background: var(--dark); color: var(--text);">
+            </div>
+          </div>
+
+          <div class="info-box">
+            <p><strong>💡 Tip:</strong> WebM format provides the best quality. MP4 is more compatible with older devices
+              and software.</p>
+          </div>
+
+          <div class="button-group">
+            <button class="btn-success" id="downloadBtn">
+              💾 Download Video
+            </button>
+            <button class="btn-info" id="downloadGifBtn">
+              🎞️ Export as GIF
+            </button>
+          </div>
+
+          <div class="progress-bar hidden" id="exportProgress">
+            <div class="progress-fill" id="exportProgressFill"></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="button-group" style="margin-top: 2rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+        <button class="btn-secondary" id="newBtn">
+          🔄 New Recording
+        </button>
+      </div>
+    </div>
+
+    <footer>
+      <p>Made with ❤️ using Web APIs | Your recordings stay private on your device | Professional Features Built-in</p>
+    </footer>
+  </div>
+
+  <canvas id="canvas" style="display: none;"></canvas>
+  <canvas id="gifCanvas" style="display: none;"></canvas>
+
+  <script src="assets/js/app.js" defer></script>
+</body>
+
+</html>
