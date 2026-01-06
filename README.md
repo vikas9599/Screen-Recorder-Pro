@@ -49,3 +49,6 @@ This project is a conversion/refactor of an existing single-file demo for person
 
 ---
 If you want, I can add a minimal `package.json` with a start script or include instructions for running with VS Code Live Server. Let me know your preference.
+
+
+![Homepage](assets/images/Homepage.png)
